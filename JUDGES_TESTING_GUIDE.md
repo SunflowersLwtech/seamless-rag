@@ -1,7 +1,7 @@
 # Judges' Testing Guide — Seamless-RAG
 
-> **For evaluators of the MariaDB Hackathon MY 2026 Innovation Track submission.**
-> This guide gives you four progressively deeper ways to verify the project — pick the one that fits your time budget.
+> **Written for evaluators of the MariaDB Hackathon MY 2026 Innovation Track submission — which went on to take 🥈 2nd place.**
+> The guide remains the best structured tour of the project: four progressively deeper ways to verify it — pick the one that fits your time budget.
 
 If anything below fails, please open an issue or email `TP085412@mail.apu.edu.my` — we'll patch it within hours.
 

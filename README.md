@@ -4,14 +4,37 @@
 
 **Vector Search & Structured-Data RAG Toolkit for MariaDB**
 
+🥈 **2nd Place Winner — [MariaDB Hackathon Malaysia 2026](https://crestsolution.com/resources/events-and-albums/mariadb-hackathon-malaysia-2026/)**, organized by the [MariaDB Foundation](https://mariadb.org/) and Crest Infosolutions. Built solo by [Liu Wei](https://github.com/SunflowersLwtech), representing Asia Pacific University of Technology & Innovation (APU).
+
 > Turn any MariaDB table into a searchable vector store. Query results come back in TOON v3 tabular format — a compact wire format that saves 10-55% of tokens (vs compact JSON) when feeding structured data to LLMs or agents.
 
-![Powered by MariaDB](docs/assets/badge-mariadb.svg)
+[![2nd Place — MariaDB Hackathon Malaysia 2026](https://img.shields.io/badge/MariaDB%20Hackathon%20MY%202026-%F0%9F%A5%88%202nd%20Place-silver)](https://crestsolution.com/resources/events-and-albums/mariadb-hackathon-malaysia-2026/)
 [![PyPI](https://img.shields.io/pypi/v/seamless-rag.svg)](https://pypi.org/project/seamless-rag/)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://python.org)
 [![TOON v3](https://img.shields.io/badge/TOON%20v3-166%2F166%20conformance-blue)]()
 [![License](https://img.shields.io/badge/license-Apache--2.0-green.svg)](LICENSE)
-[![Tests](https://img.shields.io/badge/tests-525%2F525%20passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-555%2F555%20passing-brightgreen)]()
+
+![Powered by MariaDB](docs/assets/badge-mariadb.svg)
+
+---
+
+## 90-Second Tour
+
+> This is the submission that took **2nd place at the MariaDB Hackathon Malaysia 2026**. The **[Judges' Testing Guide](https://mariadb-hackathon-my-2026.github.io/seamless-rag/judges-testing-guide/)** written for the event remains the best structured walkthrough — four progressive paths from inspect-only (5 min, no install) to full test suite (15 min). The full docs site is at <https://mariadb-hackathon-my-2026.github.io/seamless-rag/>.
+
+90-second verification:
+
+```bash
+git clone https://github.com/MariaDB-Hackathon-MY-2026/seamless-rag.git
+cd seamless-rag
+docker compose up -d --wait
+docker compose exec app seamless-rag demo
+```
+
+A 90-second screencast of the same flow lives at [`docs/assets/demo.gif`](docs/assets/demo.gif) (also [demo.mp4](docs/assets/demo.mp4)):
+
+![Seamless-RAG demo](docs/assets/demo.gif)
 
 ---
 
@@ -24,25 +47,6 @@ If you use Claude Code, Codex, Cursor, Windsurf, or another coding agent, you ca
 That prompt is intended for coding agents. It tells the agent to clone the repo if needed, prefer Docker when available (MariaDB 11.7.2+ is required for VECTOR support), and stop with the exact next command plus any missing config the user still needs to provide. The agent will not run the demo, pull models, or start long-running processes on its own — those are your call.
 
 The repo also ships **agent skills** under [`skills/public/`](skills/public/) — Anthropic-format `SKILL.md` files for `seamless-rag` (CLI + Python API + TOON format) and `text-to-sql` (turning natural-language questions into safe SELECTs over MariaDB). Drop them into your agent's skills directory if you want richer guidance after bootstrap.
-
----
-
-## Quick Start for Judges
-
-> Evaluating this submission? Start with the **[Judges' Testing Guide](https://mariadb-hackathon-my-2026.github.io/seamless-rag/judges-testing-guide/)** — four progressive paths from inspect-only (5 min, no install) to full test suite (15 min). The full docs site is at <https://mariadb-hackathon-my-2026.github.io/seamless-rag/>.
-
-90-second verification:
-
-```bash
-git clone https://github.com/SunflowersLwtech/seamless-rag.git
-cd seamless-rag
-docker compose up -d --wait
-docker compose exec app seamless-rag demo
-```
-
-A 90-second screencast of the same flow lives at [`docs/assets/demo.gif`](docs/assets/demo.gif) (also [demo.mp4](docs/assets/demo.mp4)):
-
-![Seamless-RAG demo](docs/assets/demo.gif)
 
 ---
 
@@ -65,7 +69,7 @@ This project is MariaDB-native end-to-end. The pipeline only works because of fe
 
 **See it for yourself in 5 seconds:** `seamless-rag schema` pretty-prints `SHOW CREATE TABLE chunks` (highlighting `vector(384)` and `VECTOR KEY ... DISTANCE=cosine`), `SHOW INDEX FROM chunks` (with the `VECTOR` row called out), and runs a side-by-side `VEC_DISTANCE()` vs `VEC_DISTANCE_COSINE()` query so you can verify auto-pick parity yourself.
 
-**Tested against MariaDB 11.8** (the version shipped in the official `mariadb:11.8` Docker image). 11/11 integration tests pass against the real server, exercising every feature above — see [`tests/integration/test_vector_operations.py`](tests/integration/test_vector_operations.py).
+**Tested against MariaDB 11.8** (the version shipped in the official `mariadb:11.8` Docker image). 15/15 integration tests pass against the real server, exercising every feature above — see [`tests/integration/test_vector_operations.py`](tests/integration/test_vector_operations.py).
 
 Without MariaDB's VECTOR + HNSW, this project would either need a sidecar vector DB (Chroma/Qdrant/pgvector) or a from-scratch ANN implementation. Neither would be MariaDB-native, neither would benefit from the same indexes that already serve OLTP traffic.
 
@@ -278,14 +282,19 @@ seamless-rag CLI / Python API / Agent Tools
 
 ## Test Results
 
+Verified by a fresh `make score` run (2026-07-20) against a live MariaDB 11.8 container:
+
 ```
-538 tests passing (100%)
-  lint:        100%
-  unit:        100% (338/338)
+555 tests passing (100%)
+  lint:        100% (ruff, 0 issues)
+  unit:        100% (360/360)
   spec:        100% (166/166 TOON v3 conformance)
-  integration: 100% (17/17)
+  props:       100% (12/12 property-based, Hypothesis)
+  integration: 100% (15/15 against real MariaDB 11.8)
   eval:        100%
 ```
+
+Three additional provider-e2e tests run when `OPENAI_API_KEY` is set; they are skipped in keyless environments.
 
 ## Security
 
@@ -312,7 +321,8 @@ seamless-rag CLI / Python API / Agent Tools
 | Database | [MariaDB Server 11.7+](https://mariadb.com/kb/en/vector-overview/) | Required runtime — VECTOR/HNSW lands in 11.7.2 |
 | Driver | [mariadb-connector-python](https://github.com/mariadb-corporation/mariadb-connector-python) | Used directly via `mariadb.ConnectionPool` |
 | Knowledge Base | [VEC_DISTANCE_COSINE](https://mariadb.com/kb/en/vec_distance_cosine/), [VECTOR INDEX](https://mariadb.com/kb/en/create-table-with-vectors/) | Reference docs for the SQL we generate |
-| Hackathons | [MariaDB Python Hackathon 2025 winners](https://mariadb.org/adaptive-query-optimizer-for-mariadb-vector-innovation-winner-of-mariadb-python-hackathon-2025/) | Sister projects (Adaptive Query Optimizer, Apache Airflow integration) |
+| Hackathons | [MariaDB Hackathon Malaysia 2026](https://crestsolution.com/resources/events-and-albums/mariadb-hackathon-malaysia-2026/) | **This project — 🥈 2nd place winner** |
+| | [MariaDB Python Hackathon 2025 winners](https://mariadb.org/adaptive-query-optimizer-for-mariadb-vector-innovation-winner-of-mariadb-python-hackathon-2025/) | Sister projects (Adaptive Query Optimizer, Apache Airflow integration) |
 | Distribution | [PyPI: `seamless-rag`](https://pypi.org/project/seamless-rag/) | `pip install seamless-rag[mariadb]` |
 
 ## License

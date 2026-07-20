@@ -2,11 +2,13 @@
 
 **Vector Search & TOON Format for MariaDB**
 
+🥈 **2nd Place Winner — [MariaDB Hackathon Malaysia 2026](https://crestsolution.com/resources/events-and-albums/mariadb-hackathon-malaysia-2026/)**, organized by the [MariaDB Foundation](https://mariadb.org/) and Crest Infosolutions.
+
 Turn any MariaDB table into a searchable vector store. Query results come back in TOON v3 tabular format — a compact wire format that saves 20-40% of tokens when feeding structured data to LLMs or agents.
 
-## Quick Start for Judges
+## 90-Second Tour
 
-Evaluating this submission? Start with the **[Judges' Testing Guide](judges-testing-guide.md)** — four progressive paths from inspect-only (5 min, no install) to full test suite (15 min).
+This is the submission that took 2nd place at the MariaDB Hackathon Malaysia 2026. The **[Judges' Testing Guide](judges-testing-guide.md)** written for the event remains the best structured walkthrough — four progressive paths from inspect-only (5 min, no install) to full test suite (15 min).
 
 90-second verification:
 
@@ -42,7 +44,7 @@ This project is MariaDB-native end-to-end. The pipeline only works because of fe
 
 **See it for yourself:** `seamless-rag schema` pretty-prints `SHOW CREATE TABLE chunks`, `SHOW INDEX FROM chunks`, and runs a side-by-side `VEC_DISTANCE()` vs `VEC_DISTANCE_COSINE()` query so you can verify the auto-pick parity yourself.
 
-**Tested against MariaDB 11.8** (the version shipped in the official `mariadb:11.8` Docker image). 11/11 integration tests pass against the real server, exercising every feature above. Without MariaDB's VECTOR + HNSW, this project would need a sidecar vector DB (Chroma/Qdrant/pgvector) — neither MariaDB-native, neither benefiting from the same indexes that already serve OLTP traffic.
+**Tested against MariaDB 11.8** (the version shipped in the official `mariadb:11.8` Docker image). 15/15 integration tests pass against the real server, exercising every feature above. Without MariaDB's VECTOR + HNSW, this project would need a sidecar vector DB (Chroma/Qdrant/pgvector) — neither MariaDB-native, neither benefiting from the same indexes that already serve OLTP traffic.
 
 ---
 

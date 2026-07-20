@@ -6,6 +6,14 @@ adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+### Changed
+
+- **Docs: Seamless-RAG took 🥈 2nd place at the [MariaDB Hackathon Malaysia
+  2026](https://crestsolution.com/resources/events-and-albums/mariadb-hackathon-malaysia-2026/)**,
+  organized by the MariaDB Foundation and Crest Infosolutions. README, docs
+  site, and Judges' Testing Guide updated with the result; test-count badges
+  refreshed from the live `make score` run.
+
 ## [0.1.7] - 2026-05-09
 
 ### Fixed
