@@ -1,6 +1,7 @@
 """Seamless-RAG: TOON-Native Auto-Embedding & RAG Toolkit for MariaDB."""
 
-from importlib.metadata import PackageNotFoundError, version as _pkg_version
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 
 # Single source of truth: the version declared in pyproject.toml. Read at
 # import time from package metadata so it can never desync with what PyPI

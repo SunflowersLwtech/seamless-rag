@@ -11,8 +11,6 @@ from __future__ import annotations
 import os
 from contextlib import contextmanager
 
-import pytest
-
 from seamless_rag.config import Settings
 
 
